@@ -80,29 +80,27 @@ function renderSnake() {
     head = { x: snake[0].x + 1, y: snake[0].y };
   }
 
-  // Wall Collision Check
+  // Wall collision check
   if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
-    endGame(); // Call game over handler
+    endGame();
     return;
   }
 
-  //  Self Collision Check
-  // Check if the new head overlaps any existing snake body segment
+  // Self collision check
   const isColliding = snake.some(
     (segment) => segment.x === head.x && segment.y === head.y
   );
-
   if (isColliding) {
-    endGame(); // If snake collides with body → game over
+    endGame();
     return;
   }
 
-  //  Food consumption and snake growth
+  // Food consumption and growth
   if (head.x == food.x && head.y == food.y) {
     blocks[`${food.x}, ${food.y}`].classList.remove("food");
     renderFood();
     blocks[`${food.x}, ${food.y}`].classList.add("food");
-    snake.unshift(head); // Add new head
+    snake.unshift(head);
     score += 3;
     scoreElem.innerText = score;
 
@@ -113,18 +111,24 @@ function renderSnake() {
     }
   } else {
     // Regular movement
-    // Remove old tail
     const tail = snake.pop();
-    blocks[`${tail.x}, ${tail.y}`].classList.remove("fill");
-
-    // Add new head in front
+    blocks[`${tail.x}, ${tail.y}`].classList.remove("fill", "head");
     snake.unshift(head);
   }
 
-  //Render snake visually
+  // Remove old styling from all segments before re-rendering
+  snake.forEach((segment) => {
+    blocks[`${segment.x}, ${segment.y}`].classList.remove("head");
+  });
+
+  // Render the snake body
   snake.forEach((segment) => {
     blocks[`${segment.x}, ${segment.y}`].classList.add("fill");
   });
+
+  //  Make only the head black
+  const headBlock = blocks[`${snake[0].x}, ${snake[0].y}`];
+  headBlock.classList.add("head");
 }
 
 // Endgame function
@@ -164,6 +168,9 @@ function restartGame() {
   blocks[`${food.x}, ${food.y}`].classList.remove("food");
   snake.forEach((segment) => {
     blocks[`${segment.x}, ${segment.y}`].classList.remove("fill");
+  });
+  snake.forEach((segment) => {
+    blocks[`${segment.x}, ${segment.y}`].classList.remove("head");
   });
   modal.style.display = "none";
   startGame.style.display = "none";
