@@ -98,12 +98,11 @@ section .infos {
 }
 
 .head {
-  background-color: black !important;
+  background-color: whitesmoke !important;
   transform: scale(1.1);
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   z-index: 2;
 }
-
 
 .fill {
   background-color: var(--bg-fill-color);

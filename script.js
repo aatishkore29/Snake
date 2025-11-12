@@ -52,13 +52,13 @@ function renderFood() {
 // Changing the direction of the snakeHead on arrow keys
 addEventListener("keydown", (event) => {
   // console.log(event.key);
-  if (event.key == "ArrowUp") {
+  if (event.key == "ArrowUp" && direction !== "down") {
     direction = "up";
-  } else if (event.key == "ArrowDown") {
+  } else if (event.key == "ArrowDown" && direction !== "up") {
     direction = "down";
-  } else if (event.key == "ArrowRight") {
+  } else if (event.key == "ArrowRight" && direction !== "left") {
     direction = "right";
-  } else if (event.key == "ArrowLeft") {
+  } else if (event.key == "ArrowLeft" && direction !== "right") {
     direction = "left";
   }
 });
@@ -95,7 +95,7 @@ function renderSnake() {
     return;
   }
 
-  // Food consumption and growth
+  // Food consumption and increase the length
   if (head.x == food.x && head.y == food.y) {
     blocks[`${food.x}, ${food.y}`].classList.remove("food");
     renderFood();
@@ -126,7 +126,7 @@ function renderSnake() {
     blocks[`${segment.x}, ${segment.y}`].classList.add("fill");
   });
 
-  //  Make only the head black
+  //  Make only the head white
   const headBlock = blocks[`${snake[0].x}, ${snake[0].y}`];
   headBlock.classList.add("head");
 }
