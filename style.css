@@ -88,14 +88,13 @@ section .infos {
   border: 1px solid white;
   flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(40px, 1fr));
 }
 
 .block {
-  /* width: 30px;
-  height: 30px; */
   border: 1px solid var(--border-primary-color);
+  border-radius: 50%;
 }
 
 .fill {
@@ -118,9 +117,14 @@ section .infos {
   align-items: center;
 }
 
-.modal .start-game {
+.modal .start-game,
+.modal .game-over {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-lg);
+}
+
+.modal .game-over {
+  display: none;
 }
